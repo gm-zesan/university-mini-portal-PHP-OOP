@@ -1,0 +1,287 @@
+@import "variables.scss";
+
+// Import Bootstrap
+@import "../vendor/bootstrap/scss/bootstrap.scss";
+
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+a {
+    &:focus {
+        outline: none;
+    }
+}
+
+// Main page wrapper
+#wrapper {
+    display: flex;
+    #content-wrapper {
+        background-color: $gray-100;
+        width: 100%;
+        overflow-x: hidden;
+        #content {
+        flex: 1 0 auto;
+        }
+    }
+}
+
+// Set container padding to match gutter width instead of default 15px
+.container,
+.container-fluid {
+    padding-left: $grid-gutter-width;
+    padding-right: $grid-gutter-width;
+}
+
+// Scroll to top button
+.scroll-to-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    display: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    text-align: center;
+    color: $white;
+    background: fade-out($gray-800, .5);
+    line-height: 46px;
+    &:focus,
+    &:hover {
+        color: white;
+    }
+    &:hover {
+        background: $gray-800;
+    }
+    i {
+        font-weight: 800;
+    }
+}
+  
+// utilities  
+@import "utilities/animation.scss";
+@import "utilities/background.scss";
+@import "utilities/display.scss";
+@import "utilities/text.scss";
+@import "utilities/border.scss";
+@import "utilities/progress.scss";
+@import "utilities/rotate.scss";
+
+// Custom Components
+.dropdown {
+    .dropdown-menu {
+        font-size: $dropdown-font-size;
+        .dropdown-header {
+        @extend .text-uppercase;
+        font-weight: 800;
+        font-size: 0.65rem;
+        color: $gray-500;
+        }
+    }
+}
+
+// Utility class to hide arrow from dropdown
+.dropdown.no-arrow {
+    .dropdown-toggle::after {
+        display: none;
+    }
+}
+@import "navs/global.scss";
+@import "navs/topbar.scss";
+@import "navs/sidebar.scss";
+
+.btn-circle {
+    border-radius: 100%;
+    height: 2.5rem;
+    width: 2.5rem;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    &.btn-sm {
+        height: 1.8rem;
+        width: 1.8rem;
+        font-size: 0.75rem;
+    }
+    &.btn-lg {
+        height: 3.5rem;
+        width: 3.5rem;
+        font-size: 1.35rem;
+    }
+}
+
+.btn-icon-split {
+    padding: 0;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: stretch;
+    justify-content: center;
+    .icon {
+        background: fade-out($black, .85);
+        display: inline-block;
+        padding: $btn-padding-y $btn-padding-x;
+    }
+    .text {
+        display: inline-block;
+        padding: $btn-padding-y $btn-padding-x;
+    }
+    &.btn-sm {
+        .icon {
+        padding: $btn-padding-y-sm $btn-padding-x-sm;
+        }
+        .text {
+        padding: $btn-padding-y-sm $btn-padding-x-sm;
+        }
+    }
+    &.btn-lg {
+        .icon {
+        padding: $btn-padding-y-lg $btn-padding-x-lg;
+        }
+        .text {
+        padding: $btn-padding-y-lg $btn-padding-x-lg;
+        }
+    }
+}
+
+.card {
+    .card-header {
+        // Format Dropdowns in Card Headings
+        .dropdown {
+        line-height: 1;
+        .dropdown-menu {
+            line-height: 1.5;
+        }
+        }
+    }
+    // Collapsable Card Styling
+    .card-header[data-toggle="collapse"] {
+        text-decoration: none;
+        position: relative;
+        padding: 0.75rem 3.25rem 0.75rem 1.25rem;
+        &::after {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding-right: 1.725rem;
+            line-height: 51px;
+            font-weight: 900;
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            color: $gray-400;
+        }
+        &.collapsed {
+            border-radius: $card-border-radius;
+            &::after {
+                content: '\f105';
+            }
+        }
+    }
+}
+
+form.user {
+    .custom-checkbox.small {
+        label {
+        line-height: 1.5rem;
+        }
+    }
+    .form-control-user {
+        font-size: 0.8rem;
+        border-radius: 10rem;
+        padding: 1.5rem 1rem;
+    }
+    .btn-user {
+        font-size: 0.8rem;
+        border-radius: 10rem;
+        padding: 0.75rem 1rem;
+    }
+}
+
+.btn-google {
+    @include button-variant($brand-google, $white);
+}
+
+.btn-facebook {
+    @include button-variant($brand-facebook, $white);
+}
+
+.login-left{
+    position: relative;
+}
+.login-left::before {
+    position: absolute;
+    content: "";
+    height: 99999px;
+    width: 99999px;
+    right: 0;
+    background: linear-gradient($primary, $teal);
+    top: -999px;
+    z-index: -1;
+}
+
+.error {
+    color: $gray-800;
+    font-size: 7rem;
+    position: relative;
+    line-height: 1;
+    width: 12.5rem;
+}
+@keyframes noise-anim {
+    $steps: 20;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+        clip: rect(random(100)+px,9999px,random(100)+px,0);
+        }
+    }
+}
+.error:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 2px;
+    text-shadow: -1px 0 $red;
+    top: 0;
+    color: $gray-800;
+    background: $gray-100;
+    overflow: hidden;
+    clip: rect(0,900px,0,0);
+    animation: noise-anim 2s infinite linear alternate-reverse;
+}
+
+@keyframes noise-anim-2 {
+    $steps: 20;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+        clip: rect(random(100)+px,9999px,random(100)+px,0);
+        }
+    }
+}
+.error:before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: 1px 0 $blue;
+    top: 0;
+    color: $gray-800;
+    background: $gray-100;
+    overflow: hidden;
+    clip: rect(0,900px,0,0);
+    animation: noise-anim-2 3s infinite linear alternate-reverse;
+}
+footer.sticky-footer {
+    padding: 2rem 0;
+    flex-shrink: 0;
+    .copyright {
+        line-height: 1;
+        font-size: 0.8rem;
+    }
+}
+
+body.sidebar-toggled {
+    footer.sticky-footer {
+        width: 100%;
+    }
+}
